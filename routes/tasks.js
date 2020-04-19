@@ -1,10 +1,6 @@
 module.exports = app => {
     const Tasks = app.db.models.Tasks;
-    app.route("/tasks")
-        .all((req, res, next) => {
-            delete req.body.id;
-            next();
-        })
+    app.route("/tasks")       
         .get((req, res) => {
             Tasks.findAll({})
                 .then(result => res.json(result))
@@ -19,11 +15,7 @@ module.exports = app => {
                     res.status(412).json({ msg: error.message });
                 });
         });
-    app.route("/tasks/:id")
-        .all((req, res, next) => {
-            delete req.body.id;
-            next();
-        })
+    app.route("/tasks/:id")        
         .get((req, res) => {
             Tasks.findOne({ where: req.params })
                 .then(result => {
